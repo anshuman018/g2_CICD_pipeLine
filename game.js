@@ -4,7 +4,7 @@ const ctx = canvas.getContext('2d');
 canvas.width = 400;
 canvas.height = 600;
 
-let bird = { x: 50, y: 250, width: 34, height: 24, velocity: 0, gravity: 0.5, jump: -8 };
+let bird = { x: 50, y: 250, width: 34, height: 24, velocity: 0, gravity: 0.25, jump: -6 };
 let pipes = [];
 let score = 0;
 let highScore = localStorage.getItem('flappyHighScore') || 0;
