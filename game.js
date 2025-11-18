@@ -110,7 +110,7 @@ function updatePipes() {
 }
 
 function drawBird() {
-    ctx.fillStyle = '#ffeb3b';
+    ctx.fillStyle = '#f44336';
     ctx.beginPath();
     ctx.arc(bird.x + 17, bird.y + 12, 12, 0, Math.PI * 2);
     ctx.fill();
