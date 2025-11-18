@@ -3,113 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>G2 CICD - Continuous Integration, Continuous Deployment, Continuous Debugging 😅</title>
-    <style>
-        body {
-            font-family: 'Comic Sans MS', cursive;
-            background: linear-gradient(45deg, #ff6ec4, #7873f5, #4facfe);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-            text-align: center;
-            padding: 50px;
-            color: white;
-        }
-        
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        h1 {
-            font-size: 3em;
-            animation: bounce 2s infinite;
-            text-shadow: 3px 3px 10px rgba(0,0,0,0.3);
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-        
-        .emoji {
-            font-size: 5em;
-            display: inline-block;
-            animation: spin 3s linear infinite;
-        }
-        
-        @keyframes spin {
-            100% { transform: rotate(360deg); }
-        }
-        
-        .joke {
-            background: rgba(255,255,255,0.2);
-            border-radius: 15px;
-            padding: 20px;
-            margin: 30px auto;
-            max-width: 600px;
-            font-size: 1.3em;
-            backdrop-filter: blur(10px);
-        }
-        
-        button {
-            background: #ff6ec4;
-            border: none;
-            color: white;
-            padding: 15px 30px;
-            font-size: 1.2em;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'Comic Sans MS', cursive;
-        }
-        
-        button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-        }
-    </style>
+    <title>Flappy Bird - G2 CICD Pipeline</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="emoji">🚀</div>
-    <h1>G2 CICD PIPELINE</h1>
-    <p style="font-size: 1.5em;">Where bugs go to have a party! 🎉</p>
-    
-    <div class="joke">
-        <p id="jokeText">Why do programmers prefer dark mode?<br>Because light attracts bugs! 🐛</p>
-    </div>
-    
-    <button onclick="getNewJoke()">Get Another Dad Joke!</button>
-    
-    <div style="margin-top: 40px;">
-        <p>🔄 Continuous Integration: Breaking things together!</p>
-        <p>📦 Continuous Deployment: Shipping bugs at light speed!</p>
-        <p>😱 Continuous Panic: Priceless!</p>
-    </div>
-    
-    <script>
-        const jokes = [
-            "Why do programmers prefer dark mode?<br>Because light attracts bugs! 🐛",
-            "How many programmers does it take to change a light bulb?<br>None, that's a hardware problem! 💡",
-            "Why did the developer go broke?<br>Because he used up all his cache! 💰",
-            "What's a programmer's favorite hangout place?<br>Foo Bar! 🍺",
-            "Why do Java developers wear glasses?<br>Because they don't C#! 👓",
-            "What do you call a programmer from Finland?<br>Nerdic! 🇫🇮",
-            "How do you comfort a JavaScript bug?<br>You console it! 🎮",
-            "Why did the pipeline fail?<br>It had too many pipeline breaks! 🔧",
-            "What's the object-oriented way to become wealthy?<br>Inheritance! 💎",
-            "Why did the function break up with the variable?<br>It had constant arguments! 💔"
-        ];
+    <div id="gameContainer">
+        <canvas id="gameCanvas"></canvas>
         
-        function getNewJoke() {
-            const jokeElement = document.getElementById('jokeText');
-            const randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
-            jokeElement.innerHTML = randomJoke;
-            jokeElement.style.animation = 'none';
-            setTimeout(() => {
-                jokeElement.style.animation = 'bounce 0.5s';
-            }, 10);
-        }
-    </script>
+        <div id="scoreDisplay">0</div>
+        <div id="highScore">Best: 0</div>
+        
+        <div id="startScreen">
+            <h1>🐦 Flappy Bird</h1>
+            <p>Click or press Space to flap!</p>
+            <p>Avoid the pipes and fly as far as you can</p>
+            <button id="startBtn" class="btn">Start Game</button>
+        </div>
+        
+        <div id="gameOverScreen" style="display: none;">
+            <h1>Game Over!</h1>
+            <p id="finalScore">Score: 0</p>
+            <button id="restartBtn" class="btn">Play Again</button>
+        </div>
+    </div>
+    
+    <script src="game.js"></script>
 </body>
 </html>
