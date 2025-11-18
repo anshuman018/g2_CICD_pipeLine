@@ -11,6 +11,9 @@ let highScore = localStorage.getItem('flappyHighScore') || 0;
 let gameRunning = false;
 let gameOver = false;
 let frameCount = 0;
+let godMode = false;
+let cheatSequence = [];
+const cheatCode = ['g', 'o', 'd'];
 
 // Game elements
 const startScreen = document.getElementById('startScreen');
@@ -30,10 +33,27 @@ restartBtn.addEventListener('click', restartGame);
 document.addEventListener('keydown', handleInput);
 canvas.addEventListener('click', handleInput);
 canvas.addEventListener('touchstart', handleInput);
+document.addEventListener('keypress', handleCheat);
 
 function handleInput(e) {
     if (gameRunning && !gameOver) {
         bird.velocity = bird.jump;
+    }
+}
+
+function handleCheat(e) {
+    cheatSequence.push(e.key.toLowerCase());
+    if (cheatSequence.length > cheatCode.length) {
+        cheatSequence.shift();
+    }
+    if (JSON.stringify(cheatSequence) === JSON.stringify(cheatCode)) {
+        godMode = !godMode;
+        cheatSequence = [];
+        if (godMode) {
+            scoreDisplay.style.color = '#ffd700';
+        } else {
+            scoreDisplay.style.color = 'white';
+        }
     }
 }
 
@@ -75,8 +95,12 @@ function updateBird() {
     bird.y += bird.velocity;
     
     // Check boundaries
-    if (bird.y + bird.height > canvas.height || bird.y < 0) {
+    if (!godMode && (bird.y + bird.height > canvas.height || bird.y < 0)) {
         endGame();
+    } else if (godMode) {
+        // Keep bird within bounds in god mode
+        if (bird.y < 0) bird.y = 0;
+        if (bird.y + bird.height > canvas.height) bird.y = canvas.height - bird.height;
     }
 }
 
@@ -89,7 +113,7 @@ function updatePipes() {
         pipe.x -= 3;
         
         // Check collision
-        if (bird.x + bird.width > pipe.x && 
+        if (!godMode && bird.x + bird.width > pipe.x && 
             bird.x < pipe.x + pipe.width &&
             (bird.y < pipe.topHeight || bird.y + bird.height > pipe.bottomY)) {
             endGame();
